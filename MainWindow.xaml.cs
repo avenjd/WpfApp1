@@ -20,117 +20,189 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        static int numerWybranegoChartaJanka;
+        static int numerWybranegoChartaBartka;
+        static int numerWybranegoChartaArka;
 
 
+        static int stanKontaJanka;
+        static int stanKontaBartka;
+        static int stanKontaArka;
+
+        static int ileStawiaJanek;
+        static int ileStawiaBartek;
+        static int ileStawiaArek;
+
+        static int licznikRund = 0;
+        static int liczbaWygranychJanka=0;
+        static int liczbaWygranychBartka=0;
+        static int liczbaWygranychArka=0;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        //stworzyc 4 obiekty czartow (kazdy czart ma miec losowa liczbe w sobie).
-        ///jesli gracz postawi na czarta z naiwkesza iloscia punktow to wygrywa 2x
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Postaw_Click(object sender, RoutedEventArgs e)
         {
-            Charty chart1 = new Charty();
-            Charty chart2 = new Charty();
-            Charty chart3 = new Charty();
-            Charty chart4 = new Charty();
-            //l czratyow
-            int[] punktyCzartow = new int[] {chart1.randomNum, chart2.randomNum, chart3.randomNum, chart4.randomNum };
-
+            //1. czy dobra kwote postawili 5-15zl
             if (widokRadioJanek.IsChecked == true)
             {
-                int stanKontaJanka = Convert.ToInt32(widokRadioJanek.Content);
                 string ktoStawia = "Janek";
                 widokKtoStawia.Content = ktoStawia;
-                int ileStawia = Convert.ToInt32(widokIleStawia.Text);
-                int numerWybranegoCharta = Convert.ToInt32(widokNumerCharta.Text);
-                widokJanekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawia} na charta numer {numerWybranegoCharta}";
-                //sprawdzanie czy wybrany czart ma najwiekszy nr
-
-                var najwiecejPunktow = punktyCzartow.Max();
-
-                if (numerWybranegoCharta == 1)
+                stanKontaJanka = Convert.ToInt32(widokRadioJanek.Content);
+                ileStawiaJanek = Convert.ToInt32(widokIleStawia.Text);
+                if(ileStawiaJanek>=5 && ileStawiaJanek <= 15)
                 {
-
-                    if (chart1.randomNum == najwiecejPunktow)//win
-                    {
-                        stanKontaJanka = stanKontaJanka + ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-
-                    }
-                    else//lose
-                    {
-                        stanKontaJanka = stanKontaJanka - ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-                    }
-
+                    numerWybranegoChartaJanka = Convert.ToInt32(widokNumerCharta.Text);
+                    widokJanekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawiaJanek} na charta numer {numerWybranegoChartaJanka}";
                 }
-                else if (numerWybranegoCharta == 2)
+                else
                 {
-                    if (chart2.randomNum == najwiecejPunktow)//win
-                    {
-                        stanKontaJanka = stanKontaJanka + ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-
-                    }
-                    else//lose
-                    {
-                        stanKontaJanka = stanKontaJanka - ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-                    }
+                    MessageBox.Show("Zaklad 5-15! zł");
                 }
-                else if(numerWybranegoCharta == 3)
-                {
-                    if (chart3.randomNum == najwiecejPunktow)//win
-                    {
-                        stanKontaJanka = stanKontaJanka + ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-
-                    }
-                    else//lose
-                    {
-                        stanKontaJanka = stanKontaJanka - ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-                    }
-                }
-                else if(numerWybranegoCharta == 4)
-                {
-                    if (chart4.randomNum == najwiecejPunktow)//win
-                    {
-                        stanKontaJanka = stanKontaJanka + ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-
-                    }
-                    else//lose
-                    {
-                        stanKontaJanka = stanKontaJanka - ileStawia;
-                        widokRadioJanek.Content = stanKontaJanka;
-                    }
-                }
-                else { }
+             
             }
-            else if(widokRadioBartek.IsChecked == true)
+            else if (widokRadioBartek.IsChecked == true)
             {
                 string ktoStawia = "Bartek";
                 widokKtoStawia.Content = ktoStawia;
-                int ileStawia = Convert.ToInt32(widokIleStawia.Text);
-                int numerWybranegoCharta = Convert.ToInt32(widokNumerCharta.Text);
-                widokBartekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawia} na charta numer {numerWybranegoCharta}";
-
+                stanKontaBartka = Convert.ToInt32(widokRadioBartek.Content);
+                ileStawiaBartek = Convert.ToInt32(widokIleStawia.Text);
+                if (ileStawiaBartek >= 5 && ileStawiaBartek <= 15)
+                {
+                    numerWybranegoChartaBartka = Convert.ToInt32(widokNumerCharta.Text);
+                    widokBartekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawiaBartek} na charta numer {numerWybranegoChartaBartka}";
+                }
+                else
+                {
+                    MessageBox.Show("Zaklad 5-15! zł");
+                }
             }
             else if (widokRadioArek.IsChecked == true)
             {
                 string ktoStawia = "Arek";
                 widokKtoStawia.Content = ktoStawia;
-                int ileStawia = Convert.ToInt32(widokIleStawia.Text);
-                int numerWybranegoCharta = Convert.ToInt32(widokNumerCharta.Text);
-                widokArekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawia} na charta numer {numerWybranegoCharta}";
+                stanKontaArka = Convert.ToInt32(widokRadioArek.Content);
+                ileStawiaArek = Convert.ToInt32(widokIleStawia.Text);
+                if(ileStawiaArek >=5 && ileStawiaArek <= 15)
+                {
+                    numerWybranegoChartaArka= Convert.ToInt32(widokNumerCharta.Text);
+                    widokArekPodsumowanie.Content = $"{ktoStawia} stawia {ileStawiaArek} na charta numer {numerWybranegoChartaArka}";
+                }
+                else
+                {
+                    MessageBox.Show("Zaklad 5-15! zł");
+                }
 
             }
             else { }
+
         }
-       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (licznikRund < 10)
+            {
+                //1 sprawdzenie czy kazdy zawarl zaklad
+                if (widokJanekPodsumowanie.Content == null)
+                {
+                    MessageBox.Show("Janek nie obstawił");
+                }
+                if (widokBartekPodsumowanie.Content == null)
+                {
+                    MessageBox.Show("Bartek nie obstawił");
+                }
+                if (widokArekPodsumowanie.Content == null)
+                {
+                    MessageBox.Show("Arek nie obstawił");
+                }
+
+
+                //2 tworzenie 4 obiektow Czartow, ktore w konstruktorze maja tworzona pseudolosowa zmienna z wynikiem
+                Charty chart1 = new Charty();
+                Charty chart2 = new Charty();
+                Charty chart3 = new Charty();
+                Charty chart4 = new Charty();
+                int c1 = chart1.randomNum;
+                int c2 = chart2.randomNum;
+                int c3 = chart3.randomNum;
+                int c4 = chart4.randomNum;
+
+                int[] punktyCzartow = new int[] { c1, c2, c3, c4 };
+                int MaxWynikCzarta = punktyCzartow.Max();
+                int IndexMaxCzarta = Array.IndexOf(punktyCzartow, MaxWynikCzarta);
+
+                //sprawdzenie janka 
+                if (numerWybranegoChartaJanka - 1 == IndexMaxCzarta) //-wygrana
+                {
+                    stanKontaJanka += ileStawiaJanek;
+                    widokRadioJanek.Content = stanKontaJanka;
+/*                    MessageBox.Show("Janek wygral!");
+*/                    liczbaWygranychJanka += 1;
+                }
+                else //-przegrana
+                {
+                    stanKontaJanka -= ileStawiaJanek;
+                    widokRadioJanek.Content = stanKontaJanka;
+/*                    MessageBox.Show("Janek przegral!");
+*/                }
+
+                //sprawdzenie bartka 
+                if (numerWybranegoChartaBartka - 1 == IndexMaxCzarta) //-wygrana
+                {
+                    stanKontaBartka += ileStawiaBartek;
+                    widokRadioBartek.Content = stanKontaBartka;
+/*                    MessageBox.Show("Bartek wygral!");
+*/                    liczbaWygranychBartka += 1;
+                }
+                else //-przegrana
+                {
+                    stanKontaBartka -= ileStawiaBartek;
+                    widokRadioBartek.Content = stanKontaBartka;
+/*                    MessageBox.Show("Bartek przegral!");
+*/                }
+
+                //sprawdzenie arka 
+                if (numerWybranegoChartaArka - 1 == IndexMaxCzarta) //-wygrana
+                {
+                    stanKontaArka += ileStawiaArek;
+                    widokRadioArek.Content = stanKontaArka;
+/*                    MessageBox.Show("Arek wygral!");
+*/                    liczbaWygranychArka += 1;
+                }
+                else //-przegrana
+                {
+                    stanKontaArka -= ileStawiaArek;
+                    widokRadioArek.Content = stanKontaArka;
+/*                    MessageBox.Show("Arek przegral!");
+*/                }
+                IndexMaxCzarta += 1;
+                licznikRund += 1;
+                MessageBox.Show($"Najwieksza ilosc pkt w rundzie {licznikRund}  mial czart z numerem {IndexMaxCzarta}");
+            }
+            else
+            {
+                if(liczbaWygranychJanka > liczbaWygranychBartka)
+                {
+                    if (liczbaWygranychJanka > liczbaWygranychArka)
+                    {
+                        MessageBox.Show("Najwiecej wygranych mial Janek: " + liczbaWygranychJanka);
+                    }
+                }
+                if (liczbaWygranychBartka > liczbaWygranychJanka)
+                {
+                    if (liczbaWygranychBartka > liczbaWygranychArka)
+                    {
+                        MessageBox.Show("Najwiecej wygranych mial Bartek: " + liczbaWygranychBartka);
+                    }
+                }
+                if (liczbaWygranychArka > liczbaWygranychJanka)
+                {
+                    if (liczbaWygranychArka > liczbaWygranychBartka)
+                    {
+                        MessageBox.Show("Najwiecej wygranych mial Arek: " + liczbaWygranychArka);
+                    }
+                }
+            }
+        } 
     }
 }
