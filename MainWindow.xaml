@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Label Content="Dom buchmacherski" FontSize="20" ></Label>
+            <RadioButton Content="200" FontSize="16" x:Name="widokRadioJanek"></RadioButton>
+            <RadioButton Content="200" FontSize="16" x:Name="widokRadioBartek"></RadioButton>
+            <RadioButton Content="200" FontSize="16" x:Name="widokRadioArek"></RadioButton>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="" x:Name="widokKtoStawia"></Label>
+                <Label Content="stawia"></Label>
+                <TextBox Width="45" x:Name="widokIleStawia"></TextBox>
+                <Label Content="na charta numer"></Label>
+                <TextBox Width="40" x:Name="widokNumerCharta"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Label Content="Zakłady" FontSize="20" Grid.Column="1"></Label>
+            <Label BorderBrush="Black" BorderThickness="1" Margin="5" Height="30" x:Name="widokJanekPodsumowanie"></Label>
+            <Label BorderBrush="Black" BorderThickness="1" Margin="5" Height="30" x:Name="widokBartekPodsumowanie"></Label>
+            <Label BorderBrush="Black" BorderThickness="1" Margin="5" Height="30" x:Name="widokArekPodsumowanie"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <Button Content="START!" Width="200" Height="150" Margin="20" Click="Button_Click" />
+        </StackPanel>
     </Grid>
 </Window>

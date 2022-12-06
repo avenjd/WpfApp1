@@ -9,11 +9,16 @@ namespace WpfApp1
     internal class Charty
     {
         Random random = new Random();
-        private int randomNum;
+        public int randomNum;
 
         public Charty()
         {
             this.randomNum = random.Next(1,100);
+         
+        }
+        public void CzyWygralCzart()
+        {
+
         }
     }
 }
